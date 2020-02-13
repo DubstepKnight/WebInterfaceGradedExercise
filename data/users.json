@@ -1,8 +1,8 @@
 [
     {
         "id": 1,
-        "username": "ExampleUser",
-        "password": "aGBnhYZdQ92BJ1F2B3mV8R4U1Gfg35Lf1xWEr1sZ",
+        "username": "ExampleUser0",
+        "password": "$2b$10$5HzmutperF3ltqwTfXqj4ulx4Z.lqHtiLT9VHdWEuIpRTW4T91MoO",
         "email": "example@mail.com",
         "isAdmin": false,
         "createdAt": "2017-07-21T17:32:28Z",

@@ -18,7 +18,11 @@
   },
   "homepage": "https://github.com/DubstepKnight/WebInterfaceGradedExercise#readme",
   "dependencies": {
+    "bcrypt": "^3.0.8",
     "express": "^4.17.1",
-    "nodemon": "^2.0.2"
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.2",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0"
   }
 }
