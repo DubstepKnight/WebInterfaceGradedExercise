@@ -1,8 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const passport = require("passport");
-const postings = require("../../data/postings.json");
+const postingsModel = require("../../models/postingsModel.js");
+const auth = require("../../middlewares/auth");
+fs = require('fs');
 
-router.post("/", passport.authenticate("jwt", {session: false}), (req, res) =>{
-    console.log("Postings post");
+// console.log(auth);
+
+router.post("/", auth.authenticate('jwt', { session: false} ), (req, res) =>{
+    
 })
+
+module.exports = router;
