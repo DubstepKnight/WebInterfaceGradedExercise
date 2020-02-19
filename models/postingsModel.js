@@ -29,20 +29,26 @@ module.exports = {
     // Get all postings
     getAllPostings: () => postings,
     // Get a posting by its name/title
-    getByName: (postingName) => postings.find(posting => posting.title === postingTitle),
+    getByName: (postingTitle) => postings.find(posting => posting.title === postingTitle),
     // Creating a new posting
     createNewPosting: (newPosting) => {
+        let newerPosting = {
+            ...newPosting,
+            
+        }
         postings.push(newPosting);
         return newPosting;
     },
     // Edit a posting
     changePosting: (postingToEdit) => {
         let result = null;
+        // console.log(newEditDate);
         postings.forEach((posting, i) => {
             if (posting.id == postingToEdit.id && posting.sellerInfo.id == postingToEdit.sellerInfo.id) {
                 postings[i] = {
                     ...postings[i],
-                    ...postingToEdit
+                    ...postingToEdit,
+                    lastEditDate: new Date()
                 }
                 result = postings[i];
             }

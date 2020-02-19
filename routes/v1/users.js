@@ -55,7 +55,6 @@ router.post("/login", (req, res) => {
         // Compares the two hashes, the one from DB and the provided one
         bcrypt.compare(newUser.password, hashedPassword, function(err, result) {
             if (result) {
-                // console.log(loggingUser[0].username);
                 let payload = {
                     username: loggingUser.username,
                     email: loggingUser.email,
