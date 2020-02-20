@@ -16,14 +16,15 @@ const schema = {
 
 
 module.exports = {
-    validateNewPosting: (req, res, next) => {
+    validatePosting: (req, res, next) => {
+        // console.log(req.body)
         let passValidator = new Validator({ ...req.body, images: req.files }, schema, 'object4npass');
         let passErrors = passValidator.validate();
         console.log('passErrors: ', passErrors);
         if(passErrors.length) {
             res.send(passErrors);
         } else {
-            next()
+            next();
         }
     }
 }

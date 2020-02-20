@@ -14,11 +14,9 @@ fs = require('fs');
 router.post("/", 
             auth.authenticate('jwt', { session: false} ),
             upload.array("images", 4),
-            inputValidators.validateNewPosting,
+            inputValidators.validatePosting,
             (req, res) =>{
     let newPosting = req.body;
-    // console.log(newPosting);
-    // if (newPosting) {
     try {
         let images = [];
         req.files.forEach((element, i) => {
@@ -27,21 +25,17 @@ router.post("/",
             });
             images.push(req.files[i].originalname)
         });
-        console.log(images);
         let newerPosting = {
             ...newPosting,
             images
         }
-        let renewedPostings = postingsModel.createNewPosting(newPosting);
+        let renewedPostings = postingsModel.createNewPosting(newerPosting);
         res.status(201).json({renewedPostings});
     }
     catch (error) {
-        // console.log(error);
+        console.log(error);
         res.send(error).status(401);
     }
-    // } else {
-    //     res.send("Your request is empty bro").status(400);
-    // }
 })
 
 router.get("/", (req, res) =>{
@@ -57,6 +51,103 @@ router.get("/", (req, res) =>{
     }
 })
 
+router.put("/:id", 
+            auth.authenticate('jwt', { session: false} ), 
+            upload.array("images", 4),
+            inputValidators.validatePosting, 
+            (req, res) => {
+    let editedPosting = req.body;
+    console.log(editedPosting);
+    // console.log('request files', req.files);
+    try {
+        let images = [];
+        req.files.forEach((element, i) => {
+            fs.rename(req.files[i].path, './uploads/' + req.files[i].originalname, function (err) {
+                if (err) throw err;
+            });
+            images.push(req.files[i].originalname)
+        });
+        let fullyEditedPosting = {
+            id: req.params.id,
+            ...editedPosting,
+            images
+        }
+        console.log("fullyEditedPosting", fullyEditedPosting);
+        let newPostingsModel = postingsModel.changePosting(fullyEditedPosting);
+        console.log("AHUEL BLYAT?", newPostingsModel);
+        res.send(newPostingsModel).status(201);
+        console.log("The posting was changed!");
+    }
+    catch(error) {
+        console.log(error);
+        res.send(error).status(404)
+    }
+})
+
+router.delete("/:id", auth.authenticate('jwt', { session: false} ), (req, res) => {
+    let editedPosting = req.body;
+    console.log(editedPosting);
+    try {
+        postingsModel.deletePosting(editedPosting);
+        res.send("The posting was successfully deleted").status(200);
+        console.log("The posting was successfully deleted!");
+    }
+    catch(error) {
+        console.log(error);
+        res.send(error).status(404)
+    }
+})
+
+router.get("/search/location?", (req, res) => {
+    // let chosenPosting =  postingsModel.getById(req.params.id);
+    // console.log(req.query.location);
+    let filterValue = req.query.location;
+    try {
+        let searchValue = postingsModel.searchByLocation(filterValue);
+        console.log(searchValue);
+        res.send(searchValue).status(201);
+        // console.log("Succesfully sent the stuff");
+    }
+    catch(error) {
+        console.log(error);
+        res.send(error).status(404);
+    }
+})
+
+router.get("/search/date?", (req, res) => {
+    // let chosenPosting =  postingsModel.getById(req.params.id);
+    // console.log(req.query.location);
+    let filterValue = req.query.date;
+    console.log(filterValue);
+    try {
+        let searchValue = postingsModel.searchByDateOfPosting(filterValue);
+        console.log(searchValue);
+        res.send(searchValue).status(201);
+        // console.log("Succesfully sent the stuff");
+    }
+    catch(error) {
+        console.log(error);
+        res.send(error).status(404);
+    }
+})
+
+router.get("/search/category?", (req, res) => {
+    // let chosenPosting =  postingsModel.getById(req.params.id);
+    // console.log(req.query.location);
+    let filterValue = req.query.category;
+    console.log(filterValue);
+    try {
+        let searchValue = postingsModel.searchByCategory(filterValue);
+        console.log(searchValue);
+        res.send(searchValue).status(201);
+        // console.log("Succesfully sent the stuff");
+    }
+    catch(error) {
+        console.log(error);
+        res.send(error).status(404);
+    }
+})
+
 router.get("/:id", (req, res) => {
     let chosenPosting =  postingsModel.getById(req.params.id);
     try {
@@ -68,20 +159,6 @@ router.get("/:id", (req, res) => {
         res.send(error).status(404);
     }
     console.log("get by id works!");
-})
-
-router.put("/:id", auth.authenticate('jwt', { session: false} ), (req, res) => {
-    let editedPosting = req.body;
-    console.log(editedPosting);
-    try {
-        let newPostingsModel = postingsModel.changePosting(editedPosting);
-        res.send(newPostingsModel).status(201);
-        console.log("The postings was changed!");
-    }
-    catch(error) {
-        console.log(error);
-        res.send(error).status(404)
-    }
 })
 
 module.exports = router;
