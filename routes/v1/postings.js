@@ -4,6 +4,7 @@ const postingsModel = require("../../models/postingsModel.js");
 const auth = require("../../middlewares/auth");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
+const inputValidators = require("../../middlewares/inputValidators");
 fs = require('fs');
 
 // console.log(auth);
@@ -13,21 +14,34 @@ fs = require('fs');
 router.post("/", 
             auth.authenticate('jwt', { session: false} ),
             upload.array("images", 4),
+            inputValidators.validateNewPosting,
             (req, res) =>{
     let newPosting = req.body;
     // console.log(newPosting);
-    if (newPosting) {
-        try {
-            let renewedPostings = postingsModel.createNewPosting(newPosting)
-            res.status(201).json({renewedPostings});
+    // if (newPosting) {
+    try {
+        let images = [];
+        req.files.forEach((element, i) => {
+            fs.rename(req.files[i].path, './uploads/' + req.files[i].originalname, function (err) {
+                if (err) throw err;
+            });
+            images.push(req.files[i].originalname)
+        });
+        console.log(images);
+        let newerPosting = {
+            ...newPosting,
+            images
         }
-        catch (error) {
-            // console.log(error);
-            res.send(error).status(401);
-        }
-    } else {
-        res.send("Your request is empty bro").status(400);
+        let renewedPostings = postingsModel.createNewPosting(newPosting);
+        res.status(201).json({renewedPostings});
     }
+    catch (error) {
+        // console.log(error);
+        res.send(error).status(401);
+    }
+    // } else {
+    //     res.send("Your request is empty bro").status(400);
+    // }
 })
 
 router.get("/", (req, res) =>{

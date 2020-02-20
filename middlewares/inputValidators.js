@@ -7,21 +7,23 @@ const schema = {
     category: { type: 'string', required: true },
     location: { type: 'string', required: true },
     images: [{ required: true }],
-    price: { type: 'integer', required: true },
-    dateOfPosting: { type: 'string', required: true },
+    price: { type: 'string', required: true },
     deliveryType: { type: 'string', required: true },
-    sellerInfo: { 
-        id: { type: 'integer', required: true },
-        name: { type: 'string', required: true },
-        telephoneNumber: { type: 'string', required: true }
-    }
+    sellerId: { type: 'string', required: true },
+    sellerName: { type: 'string', required: true },
+    sellerTelephoneNumber: { type: 'string', required: true }
 }
 
 
 module.exports = {
-    validateNewPosting: (req, res) => {
+    validateNewPosting: (req, res, next) => {
         let passValidator = new Validator({ ...req.body, images: req.files }, schema, 'object4npass');
         let passErrors = passValidator.validate();
         console.log('passErrors: ', passErrors);
+        if(passErrors.length) {
+            res.send(passErrors);
+        } else {
+            next()
+        }
     }
 }

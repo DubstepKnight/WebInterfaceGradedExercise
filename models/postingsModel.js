@@ -33,11 +33,12 @@ module.exports = {
     // Creating a new posting
     createNewPosting: (newPosting) => {
         let newerPosting = {
+            id: postings.length + 1,
             ...newPosting,
-            
+            dateOfPosting: new Date()
         }
-        postings.push(newPosting);
-        return newPosting;
+        postings.push(newerPosting);
+        return newerPosting;
     },
     // Edit a posting
     changePosting: (postingToEdit) => {
