@@ -59,6 +59,21 @@ module.exports = {
         users.push(user);
         return users;
     },
+    loginUser: (loggingUser) => {
+        users.forEach((element, i) => {
+            console.log("i", i);
+            console.log("element", element);
+            if (element.id == loggingUser.id) {
+                users[i] = { 
+                  id: loggingUser.id,
+                  ...loggingUser,
+                  lastLogin: new Date()
+                }
+                console.log('users[i]: ', users[i]);
+                result = users[i] ;
+            } 
+        });
+    },
     // Editing the data on user
     changeUser: (user) => {
         console.log("user", user);

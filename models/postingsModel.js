@@ -1,6 +1,6 @@
 const postings = [
     {
-        id: "0",
+        id: 0,
         title: "Example",
         description: "The description of the example posting",
         category: "Clothing",
@@ -12,15 +12,15 @@ const postings = [
             "url to the fourth picture"
         ],
         price: 1641,
-        dateOfPosting: "2018-05-23T15:35:08Z",
         deliveryType: "Pick Up",
         sellerId: 0,
         sellerName: "John Doe",
         sellerTelephoneNumber: "+358-40-374-3608",
-        lastEditDate: "2020-01-02T15:36:55Z"
+        dateOfPosting: "2020-02-21T17:08:23.977Z23Z",
+        lastEditDate: "2020-03-02T15:36:55.951Z"
     },
     {
-        id: "1",
+        id: 1,
         title: "Lego",
         description: "The description of the example posting",
         category: "Toys",
@@ -32,15 +32,15 @@ const postings = [
             "url to the fourth picture"
         ],
         price: 1641,
-        dateOfPosting: "2018-05-23T15:35:08Z",
         deliveryType: "Pick Up",
         sellerId: 0,
         sellerName: "John Doe",
         sellerTelephoneNumber: "+358-40-374-3608",
-        lastEditDate: "2020-01-02T15:36:55Z"
+        dateOfPosting: "2018-05-23T15:35:08.223Z",
+        lastEditDate: "2020-01-02T15:36:55.231Z"
     },
     {
-        id: "2",
+        id: 2,
         title: "My man",
         description: "The description of the example posting",
         category: "Toys",
@@ -52,18 +52,18 @@ const postings = [
             "url to the fourth picture"
         ],
         price: 1641,
-        dateOfPosting: "2018-05-23T15:35:08Z",
         deliveryType: "Pick Up",
         sellerId: 0,
         sellerName: "John Doe",
         sellerTelephoneNumber: "+358-40-374-3608",
-        lastEditDate: "2020-01-02T15:36:55Z"
+        dateOfPosting: "2018-05-23T15:35:08.105Z",
+        lastEditDate: "2020-01-02T15:36:55.568Z"
     }
 ]
 
 module.exports = {
     // Get a posting by its id
-    getById: (id) => postings.find(posting => posting.id ===id),
+    getById: (id) => postings.find(posting => posting.id == id),
     // Get all postings
     getAllPostings: () => postings,
     // Get a posting by its name/title
@@ -119,7 +119,8 @@ module.exports = {
     },
     // Search by date of posting
     searchByDateOfPosting: (postingDate) => {
-        let filteredPostings = postings.filter(({dateOfPosting}) => dateOfPosting.toLowerCase().indexOf(postingDate.toLowerCase()) >= 0);
+        console.log("posting date: ", postingDate);
+        let filteredPostings = postings.filter(({dateOfPosting}) => JSON.stringify(dateOfPosting).indexOf(postingDate) >= 0);
         return filteredPostings;
     }
 

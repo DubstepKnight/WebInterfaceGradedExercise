@@ -14,9 +14,9 @@ router.post("/register", (req, res) => {
     let newUser = req.body;
     const registerDate = new Date();
     // console.log(registerDate);
-    // console.log(newUser);
+    console.log(newUser);
     bcrypt.hash(newUser.password, saltRounds, function(err, hash) {
-        newUser = {
+        newerUser = {
             id: usersModel.getAllUsers().length + 1,
             ...newUser,
             password: hash,
@@ -26,7 +26,7 @@ router.post("/register", (req, res) => {
         }
         try {
             // console.log("/users/register works");
-            let newUsersModel = usersModel.addNewUser(newUser);
+            let newUsersModel = usersModel.addNewUser(newerUser);
             res.status(200).send(newUsersModel);
         }
         catch(err) {
@@ -65,7 +65,7 @@ router.post("/login", (req, res) => {
                 let options = {
                     expiresIn: "7d"
                 }
-
+                console.log(usersModel.loginUser(loggingUser));
                 const token = jwt.sign(payload, jwtKey.key, options);
                 
                 // console.log(importantData);
