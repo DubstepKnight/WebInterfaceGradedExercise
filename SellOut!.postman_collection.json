@@ -1,0 +1,1283 @@
+{
+	"info": {
+		"_postman_id": "359edaa9-5a2e-418c-b1e5-c6942a95be73",
+		"name": "SellOut!",
+		"description": "The collection of test and API requests for an exercise for WebInterfaces 2020",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register a new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a2cf5ed-1663-4494-b224-13b54ad64383",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+							"});",
+							"",
+							"var schema = {",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"id\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"username\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"password\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"email\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"isAdmin\": {",
+							"      \"type\": \"boolean\"",
+							"    },",
+							"    \"createdAt\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"lastLogin\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"postingsId\": {",
+							"      \"type\": \"array\",",
+							"      \"items\": {}",
+							"    }",
+							"  },",
+							"  \"required\": [",
+							"    \"id\",",
+							"    \"username\",",
+							"    \"password\",",
+							"    \"email\",",
+							"    \"isAdmin\",",
+							"    \"createdAt\",",
+							"    \"lastLogin\",",
+							"    \"postingsId\"",
+							"  ]",
+							"}",
+							"",
+							"var data1 = pm.response.json();",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(data1, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"newUser\",\r\n  \"password\": \"AnActualPassword\",\r\n  \"email\": \"pseudo@mail.com\",\r\n  \"isAdmin\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/v1/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"v1",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login and get a JWT ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e47abaf-a0fa-4aa9-bce8-d85c486703cc",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+							"});",
+							"",
+							"var schema = {",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"token\": {",
+							"      \"type\": \"string\"",
+							"  },",
+							"  \"required\": \"token\"",
+							"  }",
+							"}",
+							"",
+							"var data1 = pm.response.json();",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(data1, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"AnActualPassword\",\r\n  \"email\": \"example@mail.com\",\r\n  \"isAdmin\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/v1/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"v1",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new posting",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "b5ecd83b-6748-4328-91fe-f7c5aff8c723",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ed14bb45-402d-441e-be1c-b4eff6884bf6",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+							"});",
+							"",
+							"var schema = {",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"token\": {",
+							"        \"type\": \"string\"",
+							"    },",
+							"    \"title\": {",
+							"        \"type\": \"string\"",
+							"    },",
+							"    \"description\": {",
+							"        \"type\": \"string\"",
+							"    },",
+							"    \"category\": {",
+							"        \"type\":\"string\"",
+							"    },",
+							"    \"location\": {",
+							"        \"type\": \"string\"",
+							"    },",
+							"    \"price\": {",
+							"        \"type\": \"string\"",
+							"    },",
+							"    \"sellerId\": {",
+							"        \"type\": \"string\"",
+							"    },",
+							"    \"sellerName\": {",
+							"        \"type\": \"string\"",
+							"    },",
+							"    \"sellerTelephoneNumber\": {",
+							"        \"type\": \"string\"",
+							"    },",
+							"    \"images\": {",
+							"        \"type\": \"array\",",
+							"        \"items\": {}",
+							"    },",
+							"    \"dateOfPosting\": {",
+							"        \"type\": \"string\"",
+							"    },",
+							"  \"required\": [",
+							"      \"id\",",
+							"      \"title\",",
+							"      \"description\",",
+							"      \"category\",",
+							"      \"location\",",
+							"      \"price\",",
+							"      \"deliveryType\",",
+							"      \"sellerName\",",
+							"      \"sellerTelephoneNumber\",",
+							"      \"images\",",
+							"      \"dateOfPosting\"",
+							"  ]",
+							"  }",
+							"}",
+							"",
+							"var data1 = pm.response.json();",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(data1, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJleGFtcGxlQG1haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwicG9zdGluZ3NJZCI6WzEyLDU2LDUzMV0sImlhdCI6MTU4MjEyOTQ2NCwiZXhwIjoxNTgyNzM0MjY0fQ.DAjJQIDjDfVzlQJS4PwiBSUi_1uHql1xjUy1vAB4xPk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Companies",
+							"description": "The title of the posting item",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Some companies, looking good, not gonna lie",
+							"description": "The description of the posting item",
+							"type": "text"
+						},
+						{
+							"key": "category",
+							"value": "Business",
+							"description": "The category of the posting item, for example: furniture",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "Finland, Oulu",
+							"description": "The place where the posting item is located",
+							"type": "text"
+						},
+						{
+							"key": "images",
+							"description": "The images of the posting item, maximum 4 pictures allowed",
+							"type": "file",
+							"src": [
+								"/D:/Pictures/5.jpg",
+								"/D:/Pictures/DoctorK_Login.png",
+								"/D:/Pictures/Dunzo-logo.png",
+								"/D:/Pictures/getir-logo.png"
+							]
+						},
+						{
+							"key": "price",
+							"value": "200000",
+							"description": "The price of the posting",
+							"type": "text"
+						},
+						{
+							"key": "deliveryType",
+							"value": "Shipping",
+							"description": "The way, the posting will be delivered",
+							"type": "text"
+						},
+						{
+							"key": "sellerId",
+							"value": "1",
+							"description": "The id of the seller, the person who sells the posting",
+							"type": "text"
+						},
+						{
+							"key": "sellerName",
+							"value": "John Doe",
+							"description": "The name of the seller",
+							"type": "text"
+						},
+						{
+							"key": "sellerTelephoneNumber",
+							"value": "+358 40 375 0456",
+							"description": "The telephone number of the seller, for contact",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/v1/postings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"v1",
+						"postings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all postings",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "452bbb4d-1601-4b15-93e9-d9a27a41423b",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+							"});",
+							"",
+							"var postingSchema = {",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"id\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"title\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"description\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"category\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"location\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"images\": {",
+							"      \"type\": \"array\",",
+							"      \"items\": [",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        }",
+							"      ]",
+							"    },",
+							"    \"price\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"deliveryType\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"sellerId\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"sellerName\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"sellerTelephoneNumber\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"dateOfPosting\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"lastEditDate\": {",
+							"      \"type\": \"string\"",
+							"    }",
+							"  },",
+							"  \"required\": [",
+							"    \"id\",",
+							"    \"title\",",
+							"    \"description\",",
+							"    \"category\",",
+							"    \"location\",",
+							"    \"images\",",
+							"    \"price\",",
+							"    \"deliveryType\",",
+							"    \"sellerId\",",
+							"    \"sellerName\",",
+							"    \"sellerTelephoneNumber\",",
+							"    \"dateOfPosting\",",
+							"    \"lastEditDate\"",
+							"  ]",
+							"}",
+							"",
+							"var schemaResponse = {",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"  \"type\": \"array\",",
+							"  \"items\": [",
+							"     { \"$ref\": \"#postingSchema\"}",
+							"    ],",
+							"}",
+							"",
+							"var data1 = pm.response.json();",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(data1, schemaResponse)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/v1/postings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"v1",
+						"postings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get one posting by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "613e89cc-27b9-4674-925a-7e339b882f2f",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+							"});",
+							"",
+							"var schema = {",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"id\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"title\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"description\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"category\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"location\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"images\": {",
+							"      \"type\": \"array\",",
+							"      \"items\": [",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        }",
+							"      ]",
+							"    },",
+							"    \"price\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"deliveryType\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"sellerId\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"sellerName\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"sellerTelephoneNumber\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"dateOfPosting\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"lastEditDate\": {",
+							"      \"type\": \"string\"",
+							"    }",
+							"  },",
+							"  \"required\": [",
+							"    \"id\",",
+							"    \"title\",",
+							"    \"description\",",
+							"    \"category\",",
+							"    \"location\",",
+							"    \"images\",",
+							"    \"price\",",
+							"    \"deliveryType\",",
+							"    \"sellerId\",",
+							"    \"sellerName\",",
+							"    \"sellerTelephoneNumber\",",
+							"    \"dateOfPosting\",",
+							"    \"lastEditDate\"",
+							"  ]",
+							"}",
+							"",
+							"var data1 = pm.response.json();",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(data1, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/v1/postings/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"v1",
+						"postings",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete one posting by its id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b2931c4-d2a0-4ba0-b6ac-e2c196f776c6",
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkV4YW1wbGVVc2VyMSIsImVtYWlsIjoiZXhhbXBsZUBtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJwb3N0aW5nc0lkIjpbMTAsMTUsNTAsNzcsODhdLCJpYXQiOjE1ODIyMTAzNDgsImV4cCI6MTU4MjgxNTE0OH0.LEdCHj3AdF5J7C73lf_zwEaHqoy8RJq4dyA6y3069BA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/v1/postings/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"v1",
+						"postings",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit one posting by its id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c96e3886-de19-40be-82dd-1f6cdbcea64f",
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+							"});",
+							"",
+							"var schema ={",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"id\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"title\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"description\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"category\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"location\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"images\": {",
+							"      \"type\": \"array\",",
+							"      \"items\": [",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        }",
+							"      ]",
+							"    },",
+							"    \"price\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"deliveryType\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"sellerId\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"sellerName\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"sellerTelephoneNumber\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"dateOfPosting\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"lastEditDate\": {",
+							"      \"type\": \"string\"",
+							"    }",
+							"  },",
+							"  \"required\": [",
+							"    \"id\",",
+							"    \"title\",",
+							"    \"description\",",
+							"    \"category\",",
+							"    \"location\",",
+							"    \"images\",",
+							"    \"price\",",
+							"    \"deliveryType\",",
+							"    \"sellerId\",",
+							"    \"sellerName\",",
+							"    \"sellerTelephoneNumber\",",
+							"    \"dateOfPosting\",",
+							"    \"lastEditDate\"",
+							"  ]",
+							"}",
+							"",
+							"var data1 = pm.response.json();",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(data1, schema)).to.be.true;",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJleGFtcGxlQG1haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwicG9zdGluZ3NJZCI6WzEyLDU2LDUzMV0sImlhdCI6MTU4MjEyOTQ2NCwiZXhwIjoxNTgyNzM0MjY0fQ.DAjJQIDjDfVzlQJS4PwiBSUi_1uHql1xjUy1vAB4xPk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "A god",
+							"description": "The title of the posting item",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Some good looking boi",
+							"description": "The description of the posting item",
+							"type": "text"
+						},
+						{
+							"key": "category",
+							"value": "Religion",
+							"description": "The category of the posting item, for example: furniture",
+							"type": "text"
+						},
+						{
+							"key": "location",
+							"value": "Finland, Oulu",
+							"description": "The place where the posting item is located",
+							"type": "text"
+						},
+						{
+							"key": "images",
+							"description": "The images of the posting item, maximum 4 pictures allowed",
+							"type": "file",
+							"src": [
+								"/D:/Pictures/IMG_1664.CR2",
+								"/D:/Pictures/IMG_1664.JPG",
+								"/D:/Pictures/IMG_1665.JPG",
+								"/D:/Pictures/IMG_1687.CR2"
+							]
+						},
+						{
+							"key": "price",
+							"value": "25088",
+							"description": "The price of the posting",
+							"type": "text"
+						},
+						{
+							"key": "deliveryType",
+							"value": "Picking Up",
+							"description": "The way, the posting will be delivered",
+							"type": "text"
+						},
+						{
+							"key": "sellerId",
+							"value": "0",
+							"description": "The id of the seller, the person who sells the posting",
+							"type": "text"
+						},
+						{
+							"key": "sellerName",
+							"value": "Karl Marx",
+							"description": "The name of the seller",
+							"type": "text"
+						},
+						{
+							"key": "sellerTelephoneNumber",
+							"value": "+358 40 375 8556",
+							"description": "The telephone number of the seller, for contact",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5001/v1/postings/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"v1",
+						"postings",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search by posting location",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5e147895-6338-46be-9b78-86a288c168c9",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+							"});",
+							"",
+							"var postingSchema = {",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"id\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"title\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"description\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"category\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"location\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"images\": {",
+							"      \"type\": \"array\",",
+							"      \"items\": [",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        }",
+							"      ]",
+							"    },",
+							"    \"price\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"deliveryType\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"sellerId\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"sellerName\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"sellerTelephoneNumber\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"dateOfPosting\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"lastEditDate\": {",
+							"      \"type\": \"string\"",
+							"    }",
+							"  },",
+							"  \"required\": [",
+							"    \"id\",",
+							"    \"title\",",
+							"    \"description\",",
+							"    \"category\",",
+							"    \"location\",",
+							"    \"images\",",
+							"    \"price\",",
+							"    \"deliveryType\",",
+							"    \"sellerId\",",
+							"    \"sellerName\",",
+							"    \"sellerTelephoneNumber\",",
+							"    \"dateOfPosting\",",
+							"    \"lastEditDate\"",
+							"  ]",
+							"}",
+							"",
+							"var schemaResponse = {",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"  \"type\": \"array\",",
+							"  \"items\": [",
+							"     { \"$ref\": \"#postingSchema\"}",
+							"    ],",
+							"}",
+							"",
+							"var data1 = pm.response.json();",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(data1, schemaResponse)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/v1/postings/search/location/?location=Oulu",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"v1",
+						"postings",
+						"search",
+						"location",
+						""
+					],
+					"query": [
+						{
+							"key": "location",
+							"value": "Oulu"
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search by posting dateOfPosting",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1bb05085-68a2-4b66-a53a-fe9b1123bd99",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+							"});",
+							"",
+							"var postingSchema = {",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"id\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"title\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"description\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"category\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"location\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"images\": {",
+							"      \"type\": \"array\",",
+							"      \"items\": [",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        }",
+							"      ]",
+							"    },",
+							"    \"price\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"deliveryType\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"sellerId\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"sellerName\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"sellerTelephoneNumber\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"dateOfPosting\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"lastEditDate\": {",
+							"      \"type\": \"string\"",
+							"    }",
+							"  },",
+							"  \"required\": [",
+							"    \"id\",",
+							"    \"title\",",
+							"    \"description\",",
+							"    \"category\",",
+							"    \"location\",",
+							"    \"images\",",
+							"    \"price\",",
+							"    \"deliveryType\",",
+							"    \"sellerId\",",
+							"    \"sellerName\",",
+							"    \"sellerTelephoneNumber\",",
+							"    \"dateOfPosting\",",
+							"    \"lastEditDate\"",
+							"  ]",
+							"}",
+							"",
+							"var schemaResponse = {",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"  \"type\": \"array\",",
+							"  \"items\": [",
+							"     { \"$ref\": \"#postingSchema\"}",
+							"    ],",
+							"}",
+							"",
+							"var data1 = pm.response.json();",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(data1, schemaResponse)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/v1/postings/search/date/?date=2018-05-23",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"v1",
+						"postings",
+						"search",
+						"date",
+						""
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "date",
+							"value": "2018-05-23"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search by posting category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2d2237e7-b6f6-47e3-9e6f-d8610ca93f5a",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+							"});",
+							"",
+							"var postingSchema = {",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"id\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"title\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"description\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"category\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"location\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"images\": {",
+							"      \"type\": \"array\",",
+							"      \"items\": [",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        },",
+							"        {",
+							"          \"type\": \"string\"",
+							"        }",
+							"      ]",
+							"    },",
+							"    \"price\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"deliveryType\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"sellerId\": {",
+							"      \"type\": \"integer\"",
+							"    },",
+							"    \"sellerName\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"sellerTelephoneNumber\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"dateOfPosting\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"lastEditDate\": {",
+							"      \"type\": \"string\"",
+							"    }",
+							"  },",
+							"  \"required\": [",
+							"    \"id\",",
+							"    \"title\",",
+							"    \"description\",",
+							"    \"category\",",
+							"    \"location\",",
+							"    \"images\",",
+							"    \"price\",",
+							"    \"deliveryType\",",
+							"    \"sellerId\",",
+							"    \"sellerName\",",
+							"    \"sellerTelephoneNumber\",",
+							"    \"dateOfPosting\",",
+							"    \"lastEditDate\"",
+							"  ]",
+							"}",
+							"",
+							"var schemaResponse = {",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"  \"type\": \"array\",",
+							"  \"items\": [",
+							"     { \"$ref\": \"#postingSchema\"}",
+							"    ],",
+							"}",
+							"",
+							"var data1 = pm.response.json();",
+							"",
+							"pm.test('Schema is valid', function() {",
+							"  pm.expect(tv4.validate(data1, schemaResponse)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5001/v1/postings/search/category/?category=toys",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"v1",
+						"postings",
+						"search",
+						"category",
+						""
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "toys"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
