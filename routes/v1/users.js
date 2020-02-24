@@ -26,12 +26,12 @@ router.post("/register", (req, res) => {
         }
         try {
             // console.log("/users/register works");
-            let newUsersModel = usersModel.addNewUser(newerUser);
-            res.status(200).send(newUsersModel);
+            let newUser = usersModel.addNewUser(newerUser);
+            res.status(201).send(newUser);
         }
         catch(err) {
             console.log(err);
-            res.send(err);
+            res.send(err).status(400);
         }
     })
     

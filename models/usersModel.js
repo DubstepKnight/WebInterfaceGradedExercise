@@ -57,7 +57,7 @@ module.exports = {
     // Adding, registering a new user to the platform
     addNewUser: (user) => {
         users.push(user);
-        return users;
+        return user;
     },
     loginUser: (loggingUser) => {
         users.forEach((element, i) => {

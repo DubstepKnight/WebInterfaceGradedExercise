@@ -90,7 +90,6 @@ module.exports = {
                     lastEditDate: new Date()
                 }
                 result = postings[i];
-                
             }
         });
         console.log("result", result);
@@ -123,5 +122,4 @@ module.exports = {
         let filteredPostings = postings.filter(({dateOfPosting}) => JSON.stringify(dateOfPosting).indexOf(postingDate) >= 0);
         return filteredPostings;
     }
-
 }
