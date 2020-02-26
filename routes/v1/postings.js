@@ -7,10 +7,6 @@ const upload = multer({ dest: "uploads/" });
 const inputValidators = require("../../middlewares/inputValidators");
 fs = require('fs');
 
-// console.log(auth);
-
-// TODO a lot of stuff, primarily to postings.post image upload
-
 router.post("/", 
             auth.authenticate('jwt', { session: false} ),
             upload.array("images", 4),
