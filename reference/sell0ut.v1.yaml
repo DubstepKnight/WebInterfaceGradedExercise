@@ -4,10 +4,10 @@ info:
   version: '1.0'
   description: 'API for sellOut! an app where you can sell anything you want to people who need what you sell'
 servers:
-  - url: 'http://localhost:5001'
-    description: The local server URL if you started it on your local machine
   - url: 'https://sell-0ut.herokuapp.com/'
     description: 'Online server  URL, for production/remote usage'
+  - url: 'http://localhost:5001'
+    description: The local server URL if you started it on your local machine
 paths:
   /postings/search:
     get:
