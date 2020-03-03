@@ -468,6 +468,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/user'
+            examples:
+              example-1: {}
         description: 'The main user credentials: username, password, email and isAdmin boolean '
 components:
   schemas:
@@ -523,6 +525,19 @@ components:
     user:
       title: User model
       type: object
+      description: The model of an average user model
+      x-examples:
+        Example admin user:
+          id: 1
+          username: admin
+          password: $2b$10$5HzmutperF3ltqwTfXqj4ulx4Z.lqHtiLT9VHdWEuIpRTW4T91MoO
+          email: example@mail.com
+          createdAt: '2017-07-21T17:32:28Z'
+          lastLogin: '2020-02-24T18:06:04Z'
+          postingsId:
+            - 12
+            - 56
+            - 531
       properties:
         id:
           type: integer
@@ -532,9 +547,6 @@ components:
         password:
           type: string
           description: The password used in order to login later
-        isAdmin:
-          type: string
-          description: A boolean value showing if the user is an admin or not
         createdAt:
           type: string
           description: The date of the user registration
@@ -552,22 +564,7 @@ components:
       required:
         - username
         - password
-        - isAdmin
         - email
-      description: The model of an average user model
-      x-examples:
-        Example admin user:
-          id: 1
-          username: admin
-          password: $2b$10$5HzmutperF3ltqwTfXqj4ulx4Z.lqHtiLT9VHdWEuIpRTW4T91MoO
-          email: example@mail.com
-          isAdmin: true
-          createdAt: '2017-07-21T17:32:28Z'
-          lastLogin: '2020-02-24T18:06:04Z'
-          postingsId:
-            - 12
-            - 56
-            - 531
   securitySchemes:
     JWT:
       type: http
