@@ -8,7 +8,7 @@ const postings = [
         images: [
             "https://res.cloudinary.com/hbgq5qscq/image/upload/v1583954081/sell-out/bike_image_1_xviohl.jpg",
             "https://res.cloudinary.com/hbgq5qscq/image/upload/v1583954081/sell-out/bike_image_2_dcj1hs.jpg",
-            "https://res.cloudinary.com/hbgq5qscq/image/upload/v1583954081/sell-out/bike_image_3_dcj1hs.jpg"
+            "https://res.cloudinary.com/hbgq5qscq/image/upload/v1583954081/sell-out/bike_image_3_csh8v9.jpg"
         ],
         price: 60,
         deliveryType: "Pick Up",
