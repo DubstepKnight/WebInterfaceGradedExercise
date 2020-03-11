@@ -1,20 +1,19 @@
 const postings = [
     {
         id: 0,
-        title: "Example",
-        description: "The description of the example posting",
-        category: "Clothing",
+        title: "Bike '24'",
+        description: "Good condition, size: 24, 3 speeds",
+        category: "Transport",
         location: "Oulu",
         images: [
-            "url to the first picture",
-            "url to the second picture",
-            "url to the third picture",
-            "url to the fourth picture"
+            "https://res.cloudinary.com/hbgq5qscq/image/upload/v1583954081/sell-out/bike_image_1_xviohl.jpg",
+            "https://res.cloudinary.com/hbgq5qscq/image/upload/v1583954081/sell-out/bike_image_2_dcj1hs.jpg",
+            "https://res.cloudinary.com/hbgq5qscq/image/upload/v1583954081/sell-out/bike_image_3_dcj1hs.jpg"
         ],
-        price: 1641,
+        price: 60,
         deliveryType: "Pick Up",
         sellerId: 0,
-        sellerName: "John Doe",
+        sellerName: "Soussi Ghassen",
         sellerTelephoneNumber: "+358-40-374-3608",
         dateOfPosting: "2020-02-21T17:08:23.977Z23Z",
         lastEditDate: "2020-03-02T15:36:55.951Z"
@@ -22,40 +21,38 @@ const postings = [
     {
         id: 1,
         title: "Lego",
-        description: "The description of the example posting",
-        category: "Toys",
-        location: "Turku",
+        description: "Kettle - perfectly working and clean. Can contain up to 1.5 liters of water. Pm if you're interested!",
+        category: "Kitchen applience",
+        location: "Oulu",
         images: [
-            "url to the first picture",
-            "url to the second picture",
-            "url to the third picture",
-            "url to the fourth picture"
+            "https://res.cloudinary.com/hbgq5qscq/image/upload/v1583954371/sell-out/kettle2_bnhgrp.jpg",
+            "https://res.cloudinary.com/hbgq5qscq/image/upload/v1583954371/sell-out/kettle1_xsiix5.jpg"
         ],
-        price: 1641,
+        price: 10,
         deliveryType: "Pick Up",
-        sellerId: 0,
-        sellerName: "John Doe",
-        sellerTelephoneNumber: "+358-40-374-3608",
+        sellerId: 20,
+        sellerName: "Georges Delmotte",
+        sellerTelephoneNumber: "+358-40-354-2200",
         dateOfPosting: "2018-05-23T15:35:08.223Z",
         lastEditDate: "2020-01-02T15:36:55.231Z"
     },
     {
         id: 2,
-        title: "My man",
-        description: "The description of the example posting",
-        category: "Toys",
+        title: "New ankle boots by Ted Barker",
+        description: "New Ankle Boots by Ted Barker, Black Leather and Suede Uppers in Gold Metal Detail. Size 39, price 100 € Pick up at the center or at the Mill Customs",
+        category: "Boots",
         location: "Oulu, Finland",
         images: [
-            "url to the first picture",
-            "url to the second picture",
-            "url to the third picture",
-            "url to the fourth picture"
+            "https://res.cloudinary.com/hbgq5qscq/image/upload/v1583954651/sell-out/89835754_10157406552304685_1317012495382085632_n.jpg_hecrac.jpg",
+            "https://res.cloudinary.com/hbgq5qscq/image/upload/v1583954643/sell-out/89435721_10157406552444685_2992042800154935296_n.jpg_ohgmzh.jpg",
+            "https://res.cloudinary.com/hbgq5qscq/image/upload/v1583954633/sell-out/89435721_10157406552119685_2805953506580627456_o.jpg_u6hvyx.jpg",
+            "https://res.cloudinary.com/hbgq5qscq/image/upload/v1583954614/sell-out/89605133_10157406552024685_3081849707320836096_o.jpg_qczd2b.jpg"
         ],
-        price: 1641,
-        deliveryType: "Pick Up",
-        sellerId: 0,
-        sellerName: "John Doe",
-        sellerTelephoneNumber: "+358-40-374-3608",
+        price: 100,
+        deliveryType: "Delivery",
+        sellerId: 50,
+        sellerName: "Blanca Ramos",
+        sellerTelephoneNumber: "+358-40-992-2567",
         dateOfPosting: "2018-05-23T15:35:08.105Z",
         lastEditDate: "2020-01-02T15:36:55.568Z"
     }

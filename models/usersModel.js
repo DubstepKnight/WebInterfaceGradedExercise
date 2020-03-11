@@ -5,7 +5,6 @@ const users = [
         username: "admin",
         password: "$2b$10$5HzmutperF3ltqwTfXqj4ulx4Z.lqHtiLT9VHdWEuIpRTW4T91MoO",
         email: "example@mail.com",
-        isAdmin: true,
         createdAt: "2017-07-21T17:32:28Z",
         lastLogin: "2020-02-24T18:06:04Z",
         postingsId: [
@@ -19,7 +18,6 @@ const users = [
         username: "ExampleUser1",
         password: "$2b$10$5HzmutperF3ltqwTfXqj4ulx4Z.lqHtiLT9VHdWEuIpRTW4T91MoO",
         email: "example@mail.com",
-        isAdmin: false,
         createdAt: "2017-07-21T17:32:28Z",
         lastLogin: "2020-02-24T18:06:04Z",
         postingsId: [
@@ -35,7 +33,6 @@ const users = [
         username: "ExampleUser2",
         password: "$2b$10$5HzmutperF3ltqwTfXqj4ulx4Z.lqHtiLT9VHdWEuIpRTW4T91MoO",
         email: "example@mail.com",
-        isAdmin: false,
         createdAt: "2017-07-21T17:32:28Z",
         lastLogin: "2020-02-24T18:06:04Z",
         postingsId: [

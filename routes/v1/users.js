@@ -58,7 +58,6 @@ router.post("/login", (req, res) => {
                 let payload = {
                     username: loggingUser.username,
                     email: loggingUser.email,
-                    isAdmin: loggingUser.isAdmin,
                     postingsId: loggingUser.postingsId
                 }
 

@@ -3,24 +3,32 @@ const router = express.Router();
 const postingsModel = require("../../models/postingsModel.js");
 const auth = require("../../middlewares/auth");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const cloudinary = require("cloudinary").v2;
+const cloudinaryStorage = require("multer-storage-cloudinary");
+const parser = require("../../middlewares/cloudinary");
 const inputValidators = require("../../middlewares/inputValidators");
+
+// const storage = multer.memoryStorage();
+const multerUploads = multer({dest: "" }).array("images", 4);
+
 fs = require('fs');
+// const dUri = new Datauri();
 
 router.post("/", 
             auth.authenticate('jwt', { session: false} ),
-            upload.array("images", 4),
+            parser.array("images", 4),
             inputValidators.validatePosting,
             (req, res) =>{
     let newPosting = req.body;
+    console.log("req.body: ", req.body);
+    console.log("req.files: ", req.files);
+    let images = [];
     try {
-        let images = [];
         req.files.forEach((element, i) => {
-            fs.rename(req.files[i].path, './uploads/' + req.files[i].originalname, function (err) {
-                if (err) throw err;
-            });
-            images.push(req.files[i].originalname)
+            console.log("element: ", element.url);
+            images.push(element.url)
         });
+        console.log("images: ",  images);
         let newerPosting = {
             ...newPosting,
             images
@@ -49,7 +57,7 @@ router.get("/", (req, res) =>{
 
 router.put("/:id", 
             auth.authenticate('jwt', { session: false} ), 
-            upload.array("images", 4),
+            parser.array("images", 4),
             inputValidators.validatePosting, 
             (req, res) => {
     let editedPosting = req.body;
@@ -58,10 +66,10 @@ router.put("/:id",
     try {
         let images = [];
         req.files.forEach((element, i) => {
-            fs.rename(req.files[i].path, './uploads/' + req.files[i].originalname, function (err) {
-                if (err) throw err;
-            });
-            images.push(req.files[i].originalname)
+            // fs.rename(req.files[i].path, './uploads/' + req.files[i].originalname, function (err) {
+            //     if (err) throw err;
+            // });
+            images.push(element.url)
         });
         let fullyEditedPosting = {
             id: req.params.id,

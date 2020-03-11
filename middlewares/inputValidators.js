@@ -17,7 +17,7 @@ const schema = {
 
 module.exports = {
     validatePosting: (req, res, next) => {
-        // console.log(req.body)
+        // console.log("req.body: ",  req.body);
         let passValidator = new Validator({ ...req.body, images: req.files }, schema, 'object4npass');
         let passErrors = passValidator.validate();
         console.log('passErrors: ', passErrors);
