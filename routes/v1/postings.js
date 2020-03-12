@@ -55,6 +55,24 @@ router.get("/", (req, res) =>{
     }
 })
 
+router.get("/seller/",
+           auth.authenticate('jwt', { session: false} ),
+          (req, res) =>{
+    console.log("Get all posting of a user works");
+    // console.log("req: ", req.user.id);
+    let idOfTheSeller = req.user.id;
+    // console.log("idOfTheSeller: ", idOfTheSeller);
+    let somePostings = postingsModel.getBySellerId(idOfTheSeller);
+    console.log(somePostings);
+    try {
+        res.send(somePostings).status(200);
+    }
+    catch(err) {
+        console.log(err);
+        res.send(err).status(500);
+    }
+})
+
 router.put("/:id", 
             auth.authenticate('jwt', { session: false} ), 
             parser.array("images", 4),

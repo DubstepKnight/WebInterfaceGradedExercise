@@ -56,6 +56,7 @@ router.post("/login", (req, res) => {
         bcrypt.compare(newUser.password, hashedPassword, function(err, result) {
             if (result) {
                 let payload = {
+                    id: loggingUser. id,
                     username: loggingUser.username,
                     email: loggingUser.email,
                     postingsId: loggingUser.postingsId

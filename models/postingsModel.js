@@ -61,6 +61,11 @@ const postings = [
 module.exports = {
     // Get a posting by its id
     getById: (id) => postings.find(posting => posting.id == id),
+    // Get by sellerId 
+    getBySellerId: (Id) => {
+        let postingsBySellerId = postings.filter(posting =>  posting.sellerId == Id);
+        return postingsBySellerId;
+    },
     // Get all postings
     getAllPostings: () => postings,
     // Get a posting by its name/title
