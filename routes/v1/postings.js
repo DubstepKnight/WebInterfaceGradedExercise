@@ -77,12 +77,12 @@ router.get("/seller/",
     }
 })
 
-/**router.put("/:id", 
+router.put("/:id", 
             auth.authenticate('jwt', { session: false} ), 
             parser.array("images", 4),
             inputValidators.validatePosting, 
             (req, res) => {
-    let editedPosting = req.body;
+    let editedPosting = req.params.id;
     console.log(editedPosting);
     // console.log('request files', req.files);
     try {
@@ -105,11 +105,12 @@ router.get("/seller/",
         console.log(error);
         res.send(error).status(404)
     }
-})*/
+})
 
 router.delete("/:id", auth.authenticate('jwt', { session: false} ), (req, res) => {
-    let deletingPosting = req.body;
-    console.log(deletingPosting);
+    let deletingPosting = req.params.id;
+    // console.log(deletingPosting);
+    console.log("deletingPosting: ",  deletingPosting);
     try {
         postingsModel.deletePosting(deletingPosting);
         res.send("The posting was successfully deleted").status(200);
