@@ -10,7 +10,7 @@ const config = (req, res, next) => {
     });
     next();    
 }
-/**const storage = cloudinaryStorage({
+const storage = cloudinaryStorage({
     cloudinary: cloudinary,
     folder: "sell-out",
     allowedFormats: ["jpg", "png"],
@@ -19,7 +19,7 @@ const config = (req, res, next) => {
 const parser = multer({ storage: storage });
 
 module.exports = parser;
-*/
+
 
 module.exports.config = config;
 module.exports.uploader = cloudinary.uploader;

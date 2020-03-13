@@ -5,6 +5,7 @@ const auth = require("../../middlewares/auth");
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const cloudinaryStorage = require("multer-storage-cloudinary");
+const parser = require('../../middlewares/utilities/cloudinary');
 const inputValidators = require("../../middlewares/inputValidators");
 const {dataUri, multerUpload} = require('../../middlewares/utilities/multerProcess');
 
@@ -13,7 +14,7 @@ fs = require('fs');
 
 router.post("/", 
             auth.authenticate('jwt', { session: false} ),
-            multerUpload,
+            parser.array('images', 4),
             inputValidators.validatePosting,
             async (req, res) =>{
                 let newPosting = req.body;
