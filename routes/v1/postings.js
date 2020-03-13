@@ -5,26 +5,28 @@ const auth = require("../../middlewares/auth");
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const cloudinaryStorage = require("multer-storage-cloudinary");
-const parser = require("../../middlewares/cloudinary");
 const inputValidators = require("../../middlewares/inputValidators");
-
-// const storage = multer.memoryStorage();
-const multerUploads = multer({dest: "" }).array("images", 4);
+const {dataUri, multerUpload} = require('../../middlewares/utilities/multerProcess');
 
 fs = require('fs');
 // const dUri = new Datauri();
 
 router.post("/", 
             auth.authenticate('jwt', { session: false} ),
-            parser.array("images", 4),
+            multerUpload,
             inputValidators.validatePosting,
-            (req, res) =>{
+            async (req, res) =>{
     let newPosting = req.body;
     console.log("req.body: ", req.body);
     console.log("req.files: ", req.files);
     let images = [];
     try {
-        req.files.forEach((element, i) => {
+
+        const files = dataUri(req).content;
+        return files
+     /**   req.files.forEach(async (element, i) => {
+
+            const uploadRe
             console.log("element", element)
             console.log("element: ", element.url);
             images.push(element.url)
@@ -36,7 +38,7 @@ router.post("/",
             images
         }
         let renewedPostings = postingsModel.createNewPosting(newerPosting);
-        res.status(201).send(renewedPostings);
+        res.status(201).send(renewedPostings);**/
     }
     catch (error) {
         console.log(error);
