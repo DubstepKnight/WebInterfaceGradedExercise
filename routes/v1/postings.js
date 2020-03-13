@@ -18,7 +18,7 @@ router.post("/",
             async (req, res) =>{
                 let newPosting = req.body;
                 console.log("req.body: ", req.body);
-                console.log("req.files: ", req);
+                console.log("req.files: ", req.files);
                 let images = [];
     try {
 
