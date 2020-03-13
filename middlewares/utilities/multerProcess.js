@@ -5,7 +5,7 @@ const path = require('path');
 const storage = multer.memoryStorage();
 
 const multerUpload = multer({storage}, {
-    limits: { fieldSize: 2 * 1024 * 1024 }
+    limits: { fieldSize: 1024 * 1024 * 1024 }
 }).array('images');
 
 const dUri = new Datauri();
