@@ -12,6 +12,7 @@ const storage = cloudinaryStorage({
     cloudinary: cloudinary,
     folder: "sell-out",
     allowedFormats: ["jpg", "png"],
+    limits: { fieldSize: 25 * 1024 * 1024 }
     });
 const parser = multer({ storage: storage });
 

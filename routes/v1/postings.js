@@ -25,6 +25,7 @@ router.post("/",
     let images = [];
     try {
         req.files.forEach((element, i) => {
+            console.log("element", element)
             console.log("element: ", element.url);
             images.push(element.url)
         });
