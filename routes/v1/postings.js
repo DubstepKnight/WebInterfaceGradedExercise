@@ -31,6 +31,7 @@ router.post("/",
         console.log("images: ",  images);
         let newerPosting = {
             ...newPosting,
+            sellerId: req.user.id,
             images
         }
         let renewedPostings = postingsModel.createNewPosting(newerPosting);

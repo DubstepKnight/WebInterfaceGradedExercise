@@ -9,7 +9,6 @@ const schema = {
     images: [{ required: true }],
     price: { type: 'string', required: true },
     deliveryType: { type: 'string', required: true },
-    sellerId: { type: 'string', required: true },
     sellerName: { type: 'string', required: true },
     sellerTelephoneNumber: { type: 'string', required: true }
 }
