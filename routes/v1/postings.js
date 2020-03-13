@@ -37,7 +37,7 @@ router.post("/",
             // let buffer = req.files[i].buffer;
             
             // let url = reader.readAsText(buffer);
-            console.log('url: ', url);
+            // console.log('url: ', url);
             console.log("element", element)
             console.log("element: ", element.url);
             images.push(element.url)
