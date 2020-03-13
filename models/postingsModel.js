@@ -85,7 +85,8 @@ module.exports = {
         let result = null;
         console.log("posting to edit blyat nahui!", postingToEdit);
         postings.forEach((posting, i) => {
-            if (posting.id == postingToEdit.id && posting.sellerId == postingToEdit.sellerId) {
+            if (posting.id == postingToEdit.id) {
+                console.log('posting: ',  posting);
                 postings[i] = {
                     ...postings[i],
                     ...postingToEdit,

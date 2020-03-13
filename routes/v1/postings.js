@@ -94,9 +94,10 @@ router.put("/:id",
             parser.array('images', 4),
             inputValidators.validatePosting, 
             (req, res) => {
-    let editedPosting = req.params.id;
+    let editedPosting = req.body;
     console.log(editedPosting);
     // console.log('request files', req.files);
+    console.log('req.body: ', req.body);
     try {
         let images = [];
         req.files.forEach((element, i) => {
