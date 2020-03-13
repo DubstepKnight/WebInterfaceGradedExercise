@@ -16,10 +16,10 @@ router.post("/",
             multerUpload,
             inputValidators.validatePosting,
             async (req, res) =>{
-    let newPosting = req.body;
-    console.log("req.body: ", req.body);
-    console.log("req.files: ", req.files);
-    let images = [];
+                let newPosting = req.body;
+                console.log("req.body: ", req.body);
+                console.log("req.files: ", req.files);
+                let images = [];
     try {
 
         const files = dataUri(req).content;
