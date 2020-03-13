@@ -90,7 +90,8 @@ router.get("/seller/",
 
 router.put("/:id", 
             auth.authenticate('jwt', { session: false} ), 
-            multerUpload,
+            // multerUpload,
+            parser.array('images', 4)
             inputValidators.validatePosting, 
             (req, res) => {
     let editedPosting = req.params.id;
