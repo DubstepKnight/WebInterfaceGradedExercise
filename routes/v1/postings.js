@@ -24,13 +24,13 @@ router.post("/",
 
         // const files = dataUri(req).content;
         // return files
-        req.files.forEach(async (element, i) => {
+        // req.files.forEach(async (element, i) => {
 
-            // const uploadRe
-            console.log("element", element)
-            console.log("element: ", element.url);
-            images.push(element.url)
-        });
+        //     // const uploadRe
+        //     console.log("element", element)
+        //     console.log("element: ", element.url);
+        //     images.push(element.url)
+        // });
         console.log("images: ",  images);
         let newerPosting = {
             ...newPosting,
