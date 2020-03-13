@@ -77,7 +77,7 @@ router.get("/seller/",
     }
 })
 
-router.put("/:id", 
+/**router.put("/:id", 
             auth.authenticate('jwt', { session: false} ), 
             parser.array("images", 4),
             inputValidators.validatePosting, 
@@ -105,7 +105,7 @@ router.put("/:id",
         console.log(error);
         res.send(error).status(404)
     }
-})
+})*/
 
 router.delete("/:id", auth.authenticate('jwt', { session: false} ), (req, res) => {
     let deletingPosting = req.body;

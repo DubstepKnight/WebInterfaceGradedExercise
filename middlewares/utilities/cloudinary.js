@@ -21,4 +21,5 @@ const parser = multer({ storage: storage });
 module.exports = parser;
 */
 
-module.exports.config = {config, uploader: cloudinary.uploader};
+module.exports.config = config;
+module.exports.uploader = cloudinary.uploader;
