@@ -18,11 +18,11 @@ router.post("/",
             async (req, res) =>{
                 let newPosting = req.body;
                 console.log("req.body: ", req.body);
-                console.log("req.files: ", req.files);
+                console.log("req.files: ", req);
                 let images = [];
     try {
 
-        const files = dataUri(req).content;
+        // const files = dataUri(req).content;
         // return files
         req.files.forEach(async (element, i) => {
 
