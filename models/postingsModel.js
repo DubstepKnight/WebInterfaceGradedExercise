@@ -101,7 +101,8 @@ module.exports = {
     deletePosting: (postingToDelete) => {
         let result = null;
         postings.forEach((posting, i) => {
-            if (posting.id == postingToDelete.id && posting.sellerInfo.id == postingToDelete.sellerInfo.id) {
+            if (posting.id == postingToDelete) {
+                console.log(posting);
                 postings.splice(i, 1);
                 result = true;
             }
