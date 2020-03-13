@@ -3,11 +3,12 @@ const router = express.Router();
 const postingsModel = require("../../models/postingsModel.js");
 const auth = require("../../middlewares/auth");
 const multer = require("multer");
+// const { StringDecoder } = require('string_decoder');
 const cloudinary = require("cloudinary").v2;
 const cloudinaryStorage = require("multer-storage-cloudinary");
 const parser = require('../../middlewares/utilities/cloudinary');
 const inputValidators = require("../../middlewares/inputValidators");
-const {dataUri, multerUpload} = require('../../middlewares/utilities/multerProcess');
+// const {dataUri, multerUpload} = require('../../middlewares/utilities/multerProcess');
 
 fs = require('fs');
 // const dUri = new Datauri();
@@ -15,6 +16,7 @@ fs = require('fs');
 router.post("/", 
             auth.authenticate('jwt', { session: false} ),
             parser.array('images', 4),
+            // multerUpload,
             inputValidators.validatePosting,
             async (req, res) =>{
                 let newPosting = req.body;
@@ -23,10 +25,19 @@ router.post("/",
                 let images = [];
     try {
 
-        const files = dataUri(req).content;
+        // const files = dataUri(req).content;
         // return files
-        console.log("files: ", files);
+        // console.log("files: ", files);
+        // let url = req.files.buffer.toString('utf-8')
+
+        // const a = new StringDecoder('utf8')
+        // const reader = new FileReader();
+
         req.files.forEach(async (element, i) => {
+            // let buffer = req.files[i].buffer;
+            
+            // let url = reader.readAsText(buffer);
+            console.log('url: ', url);
             console.log("element", element)
             console.log("element: ", element.url);
             images.push(element.url)
