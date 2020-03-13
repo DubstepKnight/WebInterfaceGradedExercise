@@ -22,8 +22,9 @@ router.post("/",
                 let images = [];
     try {
 
-        // const files = dataUri(req).content;
+        const files = dataUri(req).content;
         // return files
+        console.log("files: ", files);
         req.files.forEach(async (element, i) => {
             console.log("element", element)
             console.log("element: ", element.url);
