@@ -23,10 +23,10 @@ router.post("/",
     try {
 
         const files = dataUri(req).content;
-        return files
-     /**   req.files.forEach(async (element, i) => {
+        // return files
+        req.files.forEach(async (element, i) => {
 
-            const uploadRe
+            // const uploadRe
             console.log("element", element)
             console.log("element: ", element.url);
             images.push(element.url)
@@ -38,7 +38,7 @@ router.post("/",
             images
         }
         let renewedPostings = postingsModel.createNewPosting(newerPosting);
-        res.status(201).send(renewedPostings);**/
+        res.status(201).send(renewedPostings);
     }
     catch (error) {
         console.log(error.stack);
