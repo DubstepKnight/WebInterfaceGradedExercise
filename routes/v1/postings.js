@@ -41,7 +41,7 @@ router.post("/",
         res.status(201).send(renewedPostings);**/
     }
     catch (error) {
-        console.log(error);
+        console.log(error.stack);
         res.send(error).status(401);
     }
 })
