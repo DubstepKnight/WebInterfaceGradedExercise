@@ -8,7 +8,8 @@ const users = [
         createdAt: "2017-07-21T17:32:28Z",
         lastLogin: "2020-02-24T18:06:04Z",
         postingsId: [
-            12,
+            1,
+            2,
             56,
             531
         ]
