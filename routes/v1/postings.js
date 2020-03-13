@@ -136,8 +136,9 @@ router.delete("/:id", auth.authenticate('jwt', { session: false} ), (req, res) =
 })
 
 router.get("/search/location?", (req, res) => {
-    // let chosenPosting =  postingsModel.getById(req.params.id);
-    // console.log(req.query.location);
+    let chosenPosting =  postingsModel.getById(req.params);
+    console.log('chosenPosting: ', chosenPosting);
+    console.log("req.query: ",  req.query);
     let filterValue = req.query.location;
     try {
         let searchValue = postingsModel.searchByLocation(filterValue);
